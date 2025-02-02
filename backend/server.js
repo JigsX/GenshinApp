@@ -1,0 +1,38 @@
+import express from 'express';
+import env from 'dotenv';
+import { connectDatabase } from './config/mongoDB.js';
+import routes from './routes/routes.js';
+
+// Load environment variables
+env.config();
+
+
+// Create Express app
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Use routes with the /api/genshinContent prefix
+app.use('/api/genshinContent', routes);
+
+// Connect to the database and start the server
+const startServer = async () => {
+  try {
+    // Connect to the database
+    await connectDatabase();
+    console.log('Database connected successfully!');
+
+    // Start the server
+    const PORT = process.env.PORT || 3000; // Use environment variable for port
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start the server:', error);
+    process.exit(1); // Exit the process if the server fails to start
+  }
+};
+
+// Start the server
+startServer();
