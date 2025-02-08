@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-
+import { useEffect } from 'react';
 export const contentStore = create((set) => ({
   contents: [],
   setContents: (contents) => set({ contents }),
@@ -45,7 +45,7 @@ export const contentStore = create((set) => ({
   // Fetch all contents
   fetchContents: async () => {
  
-    const res = await fetch('http://api-1:3000/genshinContent');
+    const res = await fetch('http://localhost:3000/genshinContent/');
       if (res.ok) {
         const contentDatas = await res.json();
         throw new Error(contentDatas.data);

@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     fetchContents();
     
-  }, [fetchContents]);
+  }, [fetchContents,contents.length]);
 
 
 

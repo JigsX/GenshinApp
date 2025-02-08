@@ -2,19 +2,19 @@ import express from 'express';
 import env from 'dotenv';
 import { connectDatabase } from './config/mongoDB.js';
 import routes from './routes/routes.js';
-
+import cors from 'cors';
 // Load environment variables
 env.config();
 
 
 // Create Express app
 const app = express();
-
+app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Use routes with the /api/genshinContent prefix
-app.use('/api/genshinContent', routes);
+app.use('/genshinContent', routes);
 
 // Connect to the database and start the server
 const startServer = async () => {
